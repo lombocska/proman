@@ -8,6 +8,6 @@ $(document).ready(function(){
     // console.log(a.id)
     state.postandshowData('boardsDict', a);
     // state.postandshowData('boardsDict', b);
-    state.getandshowData("boardsDict");
+    state.getandshowData("boardsDict", ids=[2, 3]);
 
 });

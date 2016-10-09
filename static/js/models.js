@@ -25,8 +25,8 @@ function State(imp) {
     this.changeImp = function(newImp) {
         this.implementation = newImp;
     }
-    this.getandshowData = function(dataType, ids = null){
-        this.implementation.getandshowData(dataType, ids = null);
+    this.getandshowData = function(dataType, ids){
+        this.implementation.getandshowData(dataType, ids);
     }
     this.delandshowData = function(){
         this.implementation.delandshowData();
@@ -40,14 +40,15 @@ function State(imp) {
 function LocalStorageImp() {
 
     // get data
-    this.getandshowData = function(dataType, ids = null){
-        // console.log(ids);
+    this.getandshowData = function(dataType, ids){
         if (ids) {
-            "pupp"
+            var dataDict = {}
+            for (var i in ids) {
+                dataDict[ids[i]] = JSON.parse(localStorage.getItem(dataType))[ids[i]]
+            }
         }
         else {
-            var data = JSON.parse(localStorage.getItem(dataType));
-            console.log(data)
+            var dataDict = JSON.parse(localStorage.getItem(dataType));
         }
 
     };
