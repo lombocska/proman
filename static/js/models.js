@@ -50,6 +50,12 @@ function LocalStorageImp() {
         else {
             var dataDict = JSON.parse(localStorage.getItem(dataType));
         }
+        // console.log(dataDict)
+
+
+        showBoard(dataDict)
+        work(dataDict, "5")
+        console.log(g)
 
     };
     // del data
@@ -69,8 +75,69 @@ function LocalStorageImp() {
         };
         dataDict[obj.id] = obj;
         localStorage.setItem(dataType, JSON.stringify(dataDict));
+
     };
+    // console.log(dataDict)
 };
 
+
+
+// SECTION: Append new added board to index.html
+function showBoard(dataDict){
+
+    var ul = $('<ul></ul>')
+    $.each(dataDict, function(i, board){
+        ul.append('<div class="board"  id="board_div'+ board.id +'">' +
+                '<span class=removeOnClick><button class="btn btn-danger btn-xs remove" data-remove-id = "'+board.id+'" >x</button></span>' +
+                '<p id="board_text">'+ board.title + '</p>' +
+                '</div>');
+        ul.appendTo('#board-container');
+        // console.log(board.id)
+        // console.log(board.title)
+
+    });
+}
+
+
+// SECTION : searching according to key
+var g=[];
+
+if (!Object.keys) {
+    Object.keys = function (obj) {
+        var keys = [],
+            k;
+        for (k in obj) {
+            if (Object.prototype.hasOwnProperty.call(obj, k)) {
+                keys.push(k);
+            }
+        }
+        return keys;
+    };
+}
+
+function actualType(o)
+{
+  return Object.prototype.toString.apply(o);
+}
+
+var arr=actualType([]);
+var obj=actualType({});
+
+function work(a,val)
+
+{
+
+        if (actualType(a) == obj ||actualType(a) == arr)
+        {
+            for (var j = 0; j < Object.keys(a).length; j++)
+            {
+              if (Object.keys(a)[j]==val)    g.push(a[Object.keys(a)[j]]);
+              else
+              work(a[Object.keys(a)[j]],val);
+            }
+        }
+
+
+}
 
 // DataBase constructor implementation  (State)
