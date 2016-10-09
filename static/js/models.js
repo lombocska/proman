@@ -3,7 +3,7 @@ function Board(id, title, body, cardList) {
     this.id = id;
     this.title = title;
     this.body = body;
-    this.cardList = [];
+    this.cardList = cardList;
 }
 
 // Card constructor
@@ -25,8 +25,8 @@ function State(imp) {
     this.changeImp = function(newImp) {
         this.implementation = newImp;
     }
-    this.getandshowData = function(){
-        this.implementation.getandshowData();
+    this.getandshowData = function(dataType, ids = null){
+        this.implementation.getandshowData(dataType, ids = null);
     }
     this.delandshowData = function(){
         this.implementation.delandshowData();
@@ -40,16 +40,24 @@ function State(imp) {
 function LocalStorageImp() {
 
     // get data
-    // this.getandshowData = function(dataType, ids = null){
-    //
-    // }
+    this.getandshowData = function(dataType, ids = null){
+        // console.log(ids);
+        if (ids) {
+            "pupp"
+        }
+        else {
+            var data = JSON.parse(localStorage.getItem(dataType));
+            console.log(data)
+        }
+
+    };
     // del data
     // this.delandshowData = function(dataType, id){
     //
     // }
     // save data
     this.postandshowData = function(dataType, obj){
-        console.log(obj)
+        // console.log(obj)
         if (localStorage.getItem(dataType)) {
             var dataDict = JSON.parse(localStorage.getItem(dataType));
         }
