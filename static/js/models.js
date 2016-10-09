@@ -28,8 +28,8 @@ function State(imp) {
     this.getandshowData = function(dataType, ids){
         this.implementation.getandshowData(dataType, ids);
     }
-    this.delandshowData = function(){
-        this.implementation.delandshowData();
+    this.delandshowData = function(dataType, id){
+        this.implementation.delandshowData(dataType, id);
     }
     this.postandshowData = function(dataType, obj){
         this.implementation.postandshowData(dataType, obj);
@@ -53,9 +53,11 @@ function LocalStorageImp() {
 
     };
     // del data
-    // this.delandshowData = function(dataType, id){
-    //
-    // }
+    this.delandshowData = function(dataType, id){
+        var dataDict = JSON.parse(localStorage.getItem(dataType))
+        delete dataDict[id]
+        localStorage.setItem(dataType, JSON.stringify(dataDict));
+    };
     // save data
     this.postandshowData = function(dataType, obj){
         // console.log(obj)
