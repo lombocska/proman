@@ -2,10 +2,12 @@ $(document).ready(function(){
 
     var state = new State(new LocalStorageImp());
     //input value storage functon called
-    var a = new Board (1,"title","body", [1, 2]);
-    var b = new Board (2,"title","body", [3, 4]);
-    var c = new Board (3,"title","body", [5, 6]);
-    var d = new Board (4,"négyes","négyes-body", [7, 8]);
+    var a = new Board (1,"egyes", "text-1");
+    var b = new Board (2,"kettes", "text-2");
+    var c = new Board (3,"hármas", "text-3");
+    var d = new Board (4,"négyes", "text-4");
+    var e = new Board (5,"ötös", "text-5");
+
     // console.log(a.cardList)
     // console.log(a.id)
     // state.postandshowData('boardsDict', a);
@@ -13,24 +15,24 @@ $(document).ready(function(){
     // state.postandshowData('boardsDict', c);
     // state.postandshowData('boardsDict', d);
     // state.delandshowData('boardsDict', '1')
-    state.getandshowData("boardsDict");
+    // state.getandshowData(a);
+    // a.display()
+    // b.display()
+    // c.display()
+    // d.display()
+    // e.display()
 
-    
-    $('#add-board').click(function(){
-        var title = $('#input-board').val();
-        // var id =
-        if (!title) {
-            alert("You have to fill the form!");
-        }
-        else {
-            // var board = new Board(title, getUniqueId(dataBase));
-            // var board = new Board(id, title, "inputbody", []);
-            state.postandshowData("boardsDict", board)
-            state.getandshowData("boardsDict")
+    // state.getandshowBoard()
+    // state.postandshowBoard(a);
+    // state.postandshowBoard(b);
+    // state.postandshowBoard(c);
+    // state.postandshowBoard(d);
+    // state.postandshowBoard(e);
 
-        }
 
-    });
+    state.delandshowBoard(4)
+    // state.getandshowBoard()
+
 
 
 

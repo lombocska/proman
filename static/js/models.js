@@ -1,14 +1,17 @@
 // Board constructor
-function Board(id, title, body, cardList) {
+function Board(id, title, body) {
     this.id = id;
     this.title = title;
     this.body = body;
-    this.cardList = cardList;
+    this.display = function() {
+        displayBoard(this)
+    }
 }
 
 // Card constructor
-function Card (id, title, body) {
+function Card (id, boardId, title, body) {
     this.id = id;
+    this.boardId = boardId;
     this.title = title;
     this.body = body;
 }
@@ -16,128 +19,105 @@ function Card (id, title, body) {
 
 // State pattern to handle storage as a Singleton pattern
 function State(imp) {
+    // singleton pattern
     if (arguments.callee._singletonInstance) {
         return arguments.callee._singletonInstance;
     }
     arguments.callee._singletonInstance = this;
 
+
     this.implementation = imp;
     this.changeImp = function(newImp) {
         this.implementation = newImp;
     }
-    this.getandshowData = function(dataType, ids){
-        this.implementation.getandshowData(dataType, ids);
+    //BOARD
+    this.getandshowBoard = function(){
+        this.implementation.getandshowBoard();
     }
-    this.delandshowData = function(dataType, id){
-        this.implementation.delandshowData(dataType, id);
+    this.delandshowBoard = function(boardId){
+        this.implementation.delandshowBoard(boardId);
     }
-    this.postandshowData = function(dataType, obj){
-        this.implementation.postandshowData(dataType, obj);
+    this.postandshowBoard = function(board){
+        this.implementation.postandshowBoard(board);
     }
+    // // CARD
+    // this.getandshowCard = function(){
+    //     this.implementation.getandshowCard(;
+    // }
+    // this.delandshowCard = function(){
+    //     this.implementation.delandshowCard();
+    // }
+    // this.postandshowCard = function(){
+    //     this.implementation.postandshowCard();
+    // }
 };
 
 // LocalStorageImp constructor implementation (State)
 function LocalStorageImp() {
 
     // get data
-    this.getandshowData = function(dataType, ids){
-        if (ids) {
-            var dataDict = {}
-            for (var i in ids) {
-                dataDict[ids[i]] = JSON.parse(localStorage.getItem(dataType))[ids[i]]
-            }
+    this.getandshowBoard = function(){
+        if (!localStorage.boards){
+            var boardDict = {"boards" : []};
+            localStorage.boards = JSON.stringify(boardDict);
         }
         else {
-            var dataDict = JSON.parse(localStorage.getItem(dataType));
+            var boardDict = JSON.parse(localStorage.getItem("boards"));
         }
-        // console.log(dataDict)
-
-
-        showBoard(dataDict)
-        work(dataDict, "5")
-        console.log(g)
-
+        $.each(boardDict.boards, function(i, board){
+            displayBoard(board)
+        });
     };
     // del data
-    this.delandshowData = function(dataType, id){
-        var dataDict = JSON.parse(localStorage.getItem(dataType))
-        delete dataDict[id]
-        localStorage.setItem(dataType, JSON.stringify(dataDict));
-    };
-    // save data
-    this.postandshowData = function(dataType, obj){
-        // console.log(obj)
-        if (localStorage.getItem(dataType)) {
-            var dataDict = JSON.parse(localStorage.getItem(dataType));
+    this.delandshowBoard = function(boardId){
+        var dictBoard = JSON.parse(localStorage.boards)
+
+        for (var i in dictBoard.boards) {
+            if (dictBoard.boards[i].id === boardId){
+                dictBoard.boards.splice(i, 1);
+                break;
+            }
         }
-        else {
-            var dataDict = {};
-        };
-        dataDict[obj.id] = obj;
-        localStorage.setItem(dataType, JSON.stringify(dataDict));
+        localStorage.boards = JSON.stringify(dictBoard)
+    };
+
+    // save data
+    this.postandshowBoard = function(boardObject){
+        boardObject.display();
+
+        var boardDict = JSON.parse(localStorage.boards)
+
+        boardDict.boards.push(boardObject)
+        localStorage.boards = (JSON.stringify(boardDict))
 
     };
-    // console.log(dataDict)
+
+    // // get data
+    // this.getandshowCard = function(){
+    //
+    // };
+    // // del data
+    // this.delandshowCard = function(){
+    //
+    // };
+    //
+    // // save data
+    // this.postandshowCard = function(){
+    //
+    // };
+
 };
 
 
-
-// SECTION: Append new added board to index.html
-function showBoard(dataDict){
-
-    var ul = $('<ul></ul>')
-    $.each(dataDict, function(i, board){
-        ul.append('<div class="board"  id="board_div'+ board.id +'">' +
-                '<span class=removeOnClick><button class="btn btn-danger btn-xs remove" data-remove-id = "'+board.id+'" >x</button></span>' +
-                '<p id="board_text">'+ board.title + '</p>' +
-                '</div>');
-        ul.appendTo('#board-container');
-        // console.log(board.id)
-        // console.log(board.title)
-
-    });
-}
-
-
-// SECTION : searching according to key
-var g=[];
-
-if (!Object.keys) {
-    Object.keys = function (obj) {
-        var keys = [],
-            k;
-        for (k in obj) {
-            if (Object.prototype.hasOwnProperty.call(obj, k)) {
-                keys.push(k);
-            }
-        }
-        return keys;
-    };
-}
-
-function actualType(o)
-{
-  return Object.prototype.toString.apply(o);
-}
-
-var arr=actualType([]);
-var obj=actualType({});
-
-function work(a,val)
-
-{
-
-        if (actualType(a) == obj ||actualType(a) == arr)
-        {
-            for (var j = 0; j < Object.keys(a).length; j++)
-            {
-              if (Object.keys(a)[j]==val)    g.push(a[Object.keys(a)[j]]);
-              else
-              work(a[Object.keys(a)[j]],val);
-            }
-        }
-
+function displayBoard(boardObject) {
+    var divBoard = $('<div class="board"></div>');
+    divBoard.append("<p>"+ boardObject.title +" </p>");
+    divBoard.append("<p>"+ boardObject.body +" </p>");
+    divBoard.append('<button class="btn btn-danger">Delete</button>')
+    divBoard.appendTo('#board-container');
 
 }
 
-// DataBase constructor implementation  (State)
+
+
+// dataBase constructor implementation  (State)
