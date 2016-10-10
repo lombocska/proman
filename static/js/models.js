@@ -19,7 +19,6 @@ function Card (id, boardId, title, body) {
 
 // State pattern to handle storage as a Singleton pattern
 function State(imp) {
-    // singleton pattern
     if (arguments.callee._singletonInstance) {
         return arguments.callee._singletonInstance;
     }
@@ -31,6 +30,9 @@ function State(imp) {
         this.implementation = newImp;
     }
     //BOARD
+    this.runBoardPage = function() {
+        this.implementation.runBoardPage();
+    }
     this.getandshowBoard = function(){
         this.implementation.getandshowBoard();
     }
@@ -54,6 +56,9 @@ function State(imp) {
 
 // LocalStorageImp constructor implementation (State)
 function LocalStorageImp() {
+    this.runBoardPage = function(){
+        this.getandshowBoard();
+    };
 
     // get data
     this.getandshowBoard = function(){
@@ -109,15 +114,8 @@ function LocalStorageImp() {
 };
 
 
-function displayBoard(boardObject) {
-    var divBoard = $('<div class="board"></div>');
-    divBoard.append("<p>"+ boardObject.title +" </p>");
-    divBoard.append("<p>"+ boardObject.body +" </p>");
-    divBoard.append('<button class="btn btn-danger">Delete</button>')
-    divBoard.appendTo('#board-container');
-
-}
-
-
 
 // dataBase constructor implementation  (State)
+// function DataBaseImp(){
+//     // ide kerül a getJSON
+// };

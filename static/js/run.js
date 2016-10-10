@@ -1,12 +1,13 @@
 $(document).ready(function(){
 
     var state = new State(new LocalStorageImp());
+    state.runBoardPage();
     //input value storage functon called
-    var a = new Board (1,"egyes", "text-1");
-    var b = new Board (2,"kettes", "text-2");
-    var c = new Board (3,"hármas", "text-3");
-    var d = new Board (4,"négyes", "text-4");
-    var e = new Board (5,"ötös", "text-5");
+    // var a = new Board (1,"egyes", "text-1");
+    // var b = new Board (2,"kettes", "text-2");
+    // var c = new Board (3,"hármas", "text-3");
+    // var d = new Board (4,"négyes", "text-4");
+    // var e = new Board (5,"ötös", "text-5");
 
     // console.log(a.cardList)
     // console.log(a.id)
@@ -30,10 +31,13 @@ $(document).ready(function(){
     // state.postandshowBoard(e);
 
 
-    state.delandshowBoard(4)
-    // state.getandshowBoard()
+    // state.delandshowBoard(2)
 
 
-
+    // $('#add-board').click(function(){
+    //     var inputTitle = $('input-board-title').val();
+    //     var inputBody = $('input-board-body').val();
+    //
+    // });
 
 });
