@@ -1,6 +1,5 @@
 // outsource from model.js the different functions
 
-
 function displayBoard(boardObject) {
     var divBoard = $('<div class="board" id=board_'+ boardObject.id +'></div>');
     divBoard.append("<p>BOARD</p>");

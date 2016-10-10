@@ -24,17 +24,14 @@ function State(imp) {
     }
     arguments.callee._singletonInstance = this;
 
-
     this.implementation = imp;
     this.changeImp = function(newImp) {
         this.implementation = newImp;
     }
-
     //BOARD
     this.runBoardPage = function() {
         this.implementation.runBoardPage();
     }
-
     this.getandshowBoard = function(){
         this.implementation.getandshowBoard();
     }
@@ -44,6 +41,7 @@ function State(imp) {
     this.postandshowBoard = function(inputTitle, inputBody){
         this.implementation.postandshowBoard(inputTitle, inputBody);
     }
+
     // // CARD
     // this.getandshowCard = function(){
     //     this.implementation.getandshowCard(;
@@ -61,7 +59,6 @@ function LocalStorageImp() {
     this.runBoardPage = function(){
         this.getandshowBoard();
     };
-
     // get data
     this.getandshowBoard = function(){
         if (!localStorage.boards){
@@ -87,7 +84,6 @@ function LocalStorageImp() {
         }
         localStorage.boards = JSON.stringify(dictBoard)
     };
-
     // save data
     this.postandshowBoard = function(inputTitle, inputBody){
         var boardDict = JSON.parse(localStorage.boards)
@@ -98,7 +94,6 @@ function LocalStorageImp() {
         localStorage.boards = (JSON.stringify(boardDict))
 
     };
-
     // // get data
     // this.getandshowCard = function(){
     //
