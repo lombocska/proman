@@ -2,6 +2,7 @@ $(document).ready(function(){
 
     var state = new State(new LocalStorageImp());
     state.runBoardPage();
+    // getUniqueId(state)
     //input value storage functon called
     // var a = new Board (1,"egyes", "text-1");
     // var b = new Board (2,"kettes", "text-2");
@@ -33,11 +34,10 @@ $(document).ready(function(){
 
     // state.delandshowBoard(2)
 
-
-    // $('#add-board').click(function(){
-    //     var inputTitle = $('input-board-title').val();
-    //     var inputBody = $('input-board-body').val();
-    //
-    // });
+    $('#add-board').click(function(){
+        var inputTitle = $('#input-board-title').val();
+        var inputBody = $('#input-board-body').val();
+        state.postandshowBoard(inputTitle, inputBody);
+    });
 
 });

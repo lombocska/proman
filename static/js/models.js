@@ -29,18 +29,20 @@ function State(imp) {
     this.changeImp = function(newImp) {
         this.implementation = newImp;
     }
+
     //BOARD
     this.runBoardPage = function() {
         this.implementation.runBoardPage();
     }
+
     this.getandshowBoard = function(){
         this.implementation.getandshowBoard();
     }
     this.delandshowBoard = function(boardId){
         this.implementation.delandshowBoard(boardId);
     }
-    this.postandshowBoard = function(board){
-        this.implementation.postandshowBoard(board);
+    this.postandshowBoard = function(inputTitle, inputBody){
+        this.implementation.postandshowBoard(inputTitle, inputBody);
     }
     // // CARD
     // this.getandshowCard = function(){
@@ -63,7 +65,7 @@ function LocalStorageImp() {
     // get data
     this.getandshowBoard = function(){
         if (!localStorage.boards){
-            var boardDict = {"boards" : []};
+            var boardDict = {"nextId": 1, "boards" : []};
             localStorage.boards = JSON.stringify(boardDict);
         }
         else {
@@ -87,11 +89,11 @@ function LocalStorageImp() {
     };
 
     // save data
-    this.postandshowBoard = function(boardObject){
-        boardObject.display();
-
+    this.postandshowBoard = function(inputTitle, inputBody){
         var boardDict = JSON.parse(localStorage.boards)
-
+        var boardObject = new Board(boardDict.nextId, inputTitle, inputBody)
+        boardObject.display();
+        boardDict.nextId += 1
         boardDict.boards.push(boardObject)
         localStorage.boards = (JSON.stringify(boardDict))
 
