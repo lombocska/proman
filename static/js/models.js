@@ -4,7 +4,7 @@ function Board(id, title, body) {
     this.title = title;
     this.body = body;
     this.display = function() {
-        displayBoard(this)
+        displayBoard(this);
     }
 }
 
@@ -14,6 +14,9 @@ function Card (id, boardId, title, body) {
     this.boardId = boardId;
     this.title = title;
     this.body = body;
+    this.display = function() {
+        displayCard(this);
+    }
 }
 
 
@@ -42,20 +45,24 @@ function State(imp) {
         this.implementation.postandshowBoard(inputTitle, inputBody);
     }
 
-    // // CARD
+    // CARD
+    // this.runCardPage = function() {
+    //     this.implementation.runCardPage();
+    // }
     // this.getandshowCard = function(){
     //     this.implementation.getandshowCard(;
     // }
     // this.delandshowCard = function(){
     //     this.implementation.delandshowCard();
     // }
-    // this.postandshowCard = function(){
-    //     this.implementation.postandshowCard();
-    // }
+    this.postandshowCard = function(inputTitle, inputBody, boardId){
+        this.implementation.postandshowCard(inputTitle, inputBody, boardId);
+    }
 };
 
 // LocalStorageImp constructor implementation (State)
 function LocalStorageImp() {
+    // BOARD
     this.runBoardPage = function(){
         this.getandshowBoard();
     };
@@ -79,6 +86,8 @@ function LocalStorageImp() {
         for (var i in dictBoard.boards) {
             if (dictBoard.boards[i].id === boardId){
                 dictBoard.boards.splice(i, 1);
+                // delete all cards of given board
+                localStorage.removeItem("cards_" + boardId)
                 break;
             }
         }
@@ -88,12 +97,18 @@ function LocalStorageImp() {
     this.postandshowBoard = function(inputTitle, inputBody){
         var boardDict = JSON.parse(localStorage.boards)
         var boardObject = new Board(boardDict.nextId, inputTitle, inputBody)
+        var cardDict = {"nextId": 1, "boardId": boardObject.id, cards: []};
+        localStorage.setItem("cards_" + boardObject.id, JSON.stringify(cardDict));
         boardObject.display();
         boardDict.nextId += 1
         boardDict.boards.push(boardObject)
         localStorage.boards = (JSON.stringify(boardDict))
 
     };
+    //CARD
+    // this.runCardPage = function(){
+    //     this.getandshowCard();
+    // };
     // // get data
     // this.getandshowCard = function(){
     //
@@ -103,10 +118,15 @@ function LocalStorageImp() {
     //
     // };
     //
-    // // save data
-    // this.postandshowCard = function(){
-    //
-    // };
+    // save data
+    this.postandshowCard = function(inputTitle, inputBody, boardId){
+        var cardDict = JSON.parse(localStorage.getItem("cards_" + boardId))
+        var cardObject = new Card(cardDict.nextId, boardId, inputTitle, inputBody)
+        carDict.cards.push(cardObject)
+        cardDict.cards.nextId += 1
+        cardObject.display()
+        localStorage.setItem("cards_" + boardId, JSON.stringify(cardDict))
+    };
 
 };
 

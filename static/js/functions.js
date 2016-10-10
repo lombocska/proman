@@ -17,3 +17,21 @@ function displayBoard(boardObject) {
     divBoard.append('<button class="btn btn-default">Card(s)</button>')
     divBoard.appendTo('#board-container');
 }
+
+
+function displayCard(cardObject) {
+    var divCard = $('<div class="card" id=card_'+ cardObject.id +'></div>');
+    divCard.append("<p>CARD</p>");
+    divCard.append("<p>"+ cardObject.title +" </p>");
+    divCard.append("<p>"+ cardObject.body +" </p>");
+    var btnDelete = $('<button class="btn btn-danger">Delete</button>')
+    btnDelete.on('click', function(){
+        var state = new State(new LocalStorageImp());
+        state.delandshowCard(cardObject.id);
+        var card = $('#card_'+ cardObject.id)
+        card.hide();
+    });
+    divCard.append(btnDelete)
+
+    divCard.appendTo('#card-container');
+}

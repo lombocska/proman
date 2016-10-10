@@ -6,7 +6,15 @@ $(document).ready(function(){
     $('#add-board').click(function(){
         var inputTitle = $('#input-board-title').val();
         var inputBody = $('#input-board-body').val();
-        state.postandshowBoard(inputTitle, inputBody);
+        if (inputTitle && inputBody){
+            state.postandshowBoard(inputTitle, inputBody);
+        }
+        else {
+            alert("Pls fill all!")
+        }
     });
+    var card = new Card(1, 2, "title-card", "body-card")
+    card.display();
+    
 
 });
