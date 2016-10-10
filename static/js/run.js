@@ -1,5 +1,6 @@
 $(document).ready(function(){
 
+    $('#card-container').hide();
     var state = new State(new LocalStorageImp());
     state.runBoardPage();
 
@@ -13,8 +14,7 @@ $(document).ready(function(){
             alert("Pls fill all!")
         }
     });
-    var card = new Card(1, 2, "title-card", "body-card")
-    card.display();
-    
+
+
 
 });

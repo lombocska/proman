@@ -46,12 +46,12 @@ function State(imp) {
     }
 
     // CARD
-    // this.runCardPage = function() {
-    //     this.implementation.runCardPage();
-    // }
-    // this.getandshowCard = function(){
-    //     this.implementation.getandshowCard(;
-    // }
+    this.runCardPage = function(boardId) {
+        this.implementation.runCardPage(boardId);
+    }
+    this.getandshowCard = function(boardId){
+        this.implementation.getandshowCard(boardId);
+    }
     // this.delandshowCard = function(){
     //     this.implementation.delandshowCard();
     // }
@@ -63,9 +63,11 @@ function State(imp) {
 // LocalStorageImp constructor implementation (State)
 function LocalStorageImp() {
     // BOARD
+
     this.runBoardPage = function(){
         this.getandshowBoard();
     };
+
     // get data
     this.getandshowBoard = function(){
         if (!localStorage.boards){
@@ -79,6 +81,7 @@ function LocalStorageImp() {
             displayBoard(board)
         });
     };
+
     // del data
     this.delandshowBoard = function(boardId){
         var dictBoard = JSON.parse(localStorage.boards)
@@ -106,13 +109,30 @@ function LocalStorageImp() {
 
     };
     //CARD
-    // this.runCardPage = function(){
-    //     this.getandshowCard();
-    // };
+    this.runCardPage = function(boardId){
+        this.getandshowCard(boardId);
+        var state = new State(new LocalStorageImp());
+        $('#add-card').click(function(){
+            var inputTitle = $('#input-card-title').val();
+            var inputBody = $('#input-card-body').val();
+            if (inputTitle && inputBody){
+                state.postandshowCard(inputTitle, inputBody, boardId);
+
+            }
+            else {
+                alert("Pls fill all!")
+            }
+        });
+
+    };
     // // get data
-    // this.getandshowCard = function(){
-    //
-    // };
+    this.getandshowCard = function(boardId){
+        var cardDict = JSON.parse(localStorage.getItem("cards_" + boardId));
+        $.each(cardDict.cards, function(i, card){
+            displayCard(card)
+        });
+
+    };
     // // del data
     // this.delandshowCard = function(){
     //
@@ -122,8 +142,8 @@ function LocalStorageImp() {
     this.postandshowCard = function(inputTitle, inputBody, boardId){
         var cardDict = JSON.parse(localStorage.getItem("cards_" + boardId))
         var cardObject = new Card(cardDict.nextId, boardId, inputTitle, inputBody)
-        carDict.cards.push(cardObject)
-        cardDict.cards.nextId += 1
+        cardDict.cards.push(cardObject)
+        cardDict.nextId += 1
         cardObject.display()
         localStorage.setItem("cards_" + boardId, JSON.stringify(cardDict))
     };
