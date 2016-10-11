@@ -13,10 +13,13 @@ $(document).ready(function(){
         }
 
         // empty board input field after submit
-        $(':input').val('');
-
+        resetInputField();
     });
 
+    // reset button event
+    $('.reset').on('click', function(){
+        resetInputField();
+    });
 
 
 });

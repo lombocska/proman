@@ -122,12 +122,13 @@ function LocalStorageImp() {
             else {
                 alert("Pls fill all!")
             }
-            $(':input').val('')
+            // empty board input field after submit
+            resetInputField();
         });
 
 
     };
-    // // get data
+    // get data
     this.getandshowCard = function(boardId){
         var cardDict = JSON.parse(localStorage.getItem("cards_" + boardId));
         $.each(cardDict.cards, function(i, card){

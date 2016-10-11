@@ -43,3 +43,8 @@ function displayCard(cardObject) {
 
     divCard.appendTo('#card-container');
 }
+
+
+function resetInputField(){
+    $(':input').val('');
+}
