@@ -21,6 +21,10 @@
     box-shadow: 4px 8px 16px 4px rgba(0,0,0,0.2);
 }
 
+#card-container{
+    display:none;
+}
+
 #add-board {
     position: relative;;
     top:0px;

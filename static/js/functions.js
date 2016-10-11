@@ -23,8 +23,6 @@ function displayBoard(boardObject) {
         $('#card-container').show();
         state.runCardPage(boardObject.id);
     });
-
-
 }
 
 

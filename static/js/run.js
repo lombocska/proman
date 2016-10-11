@@ -1,6 +1,4 @@
 $(document).ready(function(){
-
-    $('#card-container').hide();
     var state = new State(new LocalStorageImp());
     state.runBoardPage();
 
@@ -13,6 +11,10 @@ $(document).ready(function(){
         else {
             alert("Pls fill all!")
         }
+
+        // empty board input field after submit
+        $(':input').val('');
+
     });
 
 

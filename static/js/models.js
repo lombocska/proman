@@ -66,8 +66,8 @@ function LocalStorageImp() {
 
     this.runBoardPage = function(){
         this.getandshowBoard();
-    };
 
+    };
     // get data
     this.getandshowBoard = function(){
         if (!localStorage.boards){
@@ -81,7 +81,6 @@ function LocalStorageImp() {
             displayBoard(board)
         });
     };
-
     // del data
     this.delandshowBoard = function(boardId){
         var dictBoard = JSON.parse(localStorage.boards)
@@ -118,11 +117,14 @@ function LocalStorageImp() {
             if (inputTitle && inputBody){
                 state.postandshowCard(inputTitle, inputBody, boardId);
 
+
             }
             else {
                 alert("Pls fill all!")
             }
+            $(':input').val('')
         });
+
 
     };
     // // get data
