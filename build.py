@@ -2,7 +2,8 @@ from model import *
 
 db.connect()
 
-db.drop_tables([Person], safe=True, cascade=True)
-db.create_tables([Person], safe=True)
+db.drop_tables([Board], safe=True, cascade=True)
+db.create_tables([Board], safe=True)
 
-# Person.create(name="A", age=2)
+for i in range(10):
+    Board.create(title = "board" + str(i), body = "body" + str(i))
