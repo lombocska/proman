@@ -16,37 +16,10 @@
     /*position: absolute;*/
 }
 
-/* On mouse-over, add a deeper shadow */
-.board:hover, .formbox:hover {
-    box-shadow: 4px 8px 16px 4px rgba(0,0,0,0.2);
-}
-
-#card-container{
-    display:none;
-}
-
-#add-board {
-    position: relative;;
-    top:0px;
-    left:0px;
-}
-
-.reset {
-    position: relative;;
-    /*top:55px;
-    left:90px;*/
-}
-
-
-.board:hover, .formbox:hover {
-    box-shadow: 4px 8px 16px 4px rgba(0,0,0,0.2);
-}
-
 .board-list {margin-top: 4em;}
 
-
-.remove {margin: 0.5em;
-    float: right;
+.board:hover, .formbox:hover {
+    box-shadow: 4px 8px 16px 4px rgba(0,0,0,0.2);
 }
 
 .card, .formbox{
@@ -64,8 +37,28 @@
 
 .card-list {margin-top: 4em;}
 
+#card-container{
+    display:none;
+}
+
+#add-board {
+    position: relative;;
+    top:0px;
+    left:0px;
+}
+
 #add-card {
     position: relative;;
     top:0px;
     left:0px;
+}
+
+#reset {
+    position: relative;;
+    /*top:55px;
+    left:90px;*/
+}
+
+.remove {margin: 0.5em;
+    float: right;
 }
